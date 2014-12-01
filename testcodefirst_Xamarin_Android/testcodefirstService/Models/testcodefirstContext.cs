@@ -40,7 +40,11 @@ namespace testcodefirstService.Models
                     "ServiceTableColumn", (property, attributes) => attributes.Single().ColumnType.ToString()));
         }
 
-        public System.Data.Entity.DbSet<testcodefirstService.DataObjects.User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Thread> Threads { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
     }
 
 }

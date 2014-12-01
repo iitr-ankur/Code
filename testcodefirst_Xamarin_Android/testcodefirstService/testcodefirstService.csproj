@@ -188,8 +188,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\ThreadController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataObjects\Message.cs" />
+    <Compile Include="DataObjects\Thread.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
     <Compile Include="DataObjects\User.cs" />
     <Compile Include="Migrations\201410292134562_Initial.cs" />
@@ -207,6 +211,14 @@
     <Compile Include="Migrations\201410292210553_ChangeNameToUserName.cs" />
     <Compile Include="Migrations\201410292210553_ChangeNameToUserName.Designer.cs">
       <DependentUpon>201410292210553_ChangeNameToUserName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412011000305_AddThread.cs" />
+    <Compile Include="Migrations\201412011000305_AddThread.Designer.cs">
+      <DependentUpon>201412011000305_AddThread.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412011021197_AddMessage.cs" />
+    <Compile Include="Migrations\201412011021197_AddMessage.Designer.cs">
+      <DependentUpon>201412011021197_AddMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\testcodefirstContext.cs" />
@@ -242,8 +254,15 @@
     <EmbeddedResource Include="Migrations\201410292210553_ChangeNameToUserName.resx">
       <DependentUpon>201410292210553_ChangeNameToUserName.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412011000305_AddThread.resx">
+      <DependentUpon>201412011000305_AddThread.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412011021197_AddMessage.resx">
+      <DependentUpon>201412011021197_AddMessage.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\mobile-testcodefirst.pubxml" />
     <None Include="Properties\PublishProfiles\testcodefirst - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testcodefirst - Web Deploy.pubxml" />
   </ItemGroup>
