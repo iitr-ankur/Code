@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TodoAzurePcl
 {
-	public class TodoItem
+	public class TodoItem : EntityData
 	{
 		public TodoItem ()
 		{
@@ -11,7 +11,7 @@ namespace TodoAzurePcl
 
 		private static bool save = false;
 
-		public string Id { get; set; }
+		//public string Id { get; set; }
 
 		[JsonProperty(PropertyName = "text")]
 		public string Text { get; set; }

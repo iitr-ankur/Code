@@ -1,29 +1,29 @@
 ﻿using System;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 using Microsoft.WindowsAzure.MobileServices;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.WindowsAzure.MobileServices.Sync;
+using System.Diagnostics;
 
 namespace TodoAzurePcl
 {
-	public class TodoItemManager {
-
-		IMobileServiceSyncTable<TodoItem> todoTable;
+	public class SyncRepository<T> : IRepository<T> where T : EntityData
+	{
+		IMobileServiceSyncTable<T> syncTable;
 		IMobileServiceClient client;
 
-		public TodoItemManager (IMobileServiceClient client, IMobileServiceSyncTable<TodoItem> todoTable) 
+		public SyncRepository (IMobileServiceClient client, IMobileServiceSyncTable<T> syncTable) 
 		{
-			this.todoTable = todoTable;
+			this.syncTable = syncTable;
 			this.client = client;
 		}
 
-		public async Task<TodoItem> GetTaskAsync(string id)
+		public async Task<T> GetTaskAsync(string id)
 		{
 			try 
 			{
 				await SyncAsync();
-				return await todoTable.LookupAsync(id);
+				return await syncTable.LookupAsync(id);
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
 			{
@@ -36,12 +36,12 @@ namespace TodoAzurePcl
 			return null;
 		}
 
-		public async Task<List<TodoItem>> GetTasksAsync ()
+		public async Task<List<T>> GetTasksAsync ()
 		{
 			try 
 			{
 				await SyncAsync();
-				return new List<TodoItem> (await todoTable.ReadAsync());
+				return new List<T> (await syncTable.ReadAsync());
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
 			{
@@ -54,14 +54,14 @@ namespace TodoAzurePcl
 			return null;
 		}
 
-		public async Task SaveTaskAsync (TodoItem item)
+		public async Task SaveTaskAsync (T item)
 		{
 			try {
 				if (item.Id == null)
-					await todoTable.InsertAsync (item);
+					await syncTable.InsertAsync (item);
 				else
-					await todoTable.UpdateAsync (item);
-				
+					await syncTable.UpdateAsync (item);
+
 				await SyncAsync ();
 			}
 			catch (MobileServiceInvalidOperationException msioe)
@@ -74,11 +74,11 @@ namespace TodoAzurePcl
 			}
 		}
 
-		public async Task DeleteTaskAsync (TodoItem item)
+		public async Task DeleteTaskAsync (T item)
 		{
 			try 
 			{
-				await todoTable.DeleteAsync(item);
+				await syncTable.DeleteAsync(item);
 				await SyncAsync();
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
@@ -96,7 +96,7 @@ namespace TodoAzurePcl
 			try
 			{
 				await this.client.SyncContext.PushAsync();
-				await this.todoTable.PullAsync("pullAll", todoTable.CreateQuery());
+				await this.syncTable.PullAsync("pullAll", syncTable.CreateQuery());
 			}
 			catch (MobileServiceInvalidOperationException e)
 			{

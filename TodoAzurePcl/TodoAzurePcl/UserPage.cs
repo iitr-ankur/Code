@@ -6,15 +6,16 @@ using System.Threading;
 using System.Linq;
 using System.Collections.ObjectModel;
 
+
 namespace TodoAzurePcl
 {
-	public static class App
+	public static class UserPage
 	{
 		private static Entry newItem;
 		private static Button addItemButton;
 		private static ListView itemsListView;
-		private static ObservableCollection<TodoItem> itemList = new ObservableCollection<TodoItem>();
-		private static ObservableCollection<TodoItem> itemList2 = new ObservableCollection<TodoItem>();
+		private static ObservableCollection<User> itemList = new ObservableCollection<User>();
+		private static ObservableCollection<User> itemList2 = new ObservableCollection<User>();
 		private static Button loadButton;
 		private static Label itemCountLabel;
 		private static ActivityIndicator activityIndicator;
@@ -33,9 +34,9 @@ namespace TodoAzurePcl
 			};
 
 			addItemButton.Clicked += (sender, e) => {
-				var item = new TodoItem() {Text = newItem.Text, Complete = false};
+				var item = new User() {UserName = newItem.Text};
 				itemList.Add(item);
-				App.todoItemManager.SaveTaskAsync (item);
+				UserPage.todoItemManager.SaveTaskAsync (item);
 				newItem.Text = "";
 			};
 
@@ -64,7 +65,7 @@ namespace TodoAzurePcl
 				try {
 					activityIndicator.IsRunning = true;
 					var items = await todoItemManager.GetTasksAsync();
-					foreach (var item in items.OrderBy(p => p.Text)) {
+					foreach (var item in items.OrderBy(p => p.UserName)) {
 						itemList.Add (item);
 					}
 
@@ -75,7 +76,9 @@ namespace TodoAzurePcl
 				}
 			};
 
-			itemsListView.ItemTemplate = new DataTemplate(typeof(ItemCell));
+			//itemsListView.ItemTemplate = new DataTemplate(typeof(ItemCell));
+			itemsListView.ItemTemplate = new DataTemplate(typeof(TextCell));
+			itemsListView.ItemTemplate.SetBinding (TextCell.TextProperty, "UserName");
 			itemsListView.ItemsSource = itemList;
 
 			var page = new ContentPage {
@@ -105,46 +108,46 @@ namespace TodoAzurePcl
 		public static async Task LoadItems() {
 			activityIndicator.IsRunning = true;
 			var items = await todoItemManager.GetTasksAsync ();
-			foreach (var item in items.OrderBy(p => p.Text)) {
+			foreach (var item in items.OrderBy(p => p.UserName)) {
 				itemList.Add (item);
 			}
 			itemCountLabel.Text = itemList.Count.ToString();
 			activityIndicator.IsRunning = false;
-			TodoItem.SetSaveMode (true);
+			User.SetSaveMode (true);
 		}
 
 		public static async Task RefreshList(){
 			activityIndicator.IsRunning = true;
 			var items = await todoItemManager.GetTasksAsync ();
-			foreach (var item in items.OrderBy(p => p.Text)) {
+			foreach (var item in items.OrderBy(p => p.UserName)) {
 				itemList2.Add (item);
 			}
 			itemCountLabel.Text = itemList.Count.ToString();
 			activityIndicator.IsRunning = false;
 			itemsListView.ItemsSource = itemList2;
-			TodoItem.SetSaveMode (true);
+			User.SetSaveMode (true);
 		}
 
 		#region Azure stuff
-//		public static TodoItemManager todoItemManager;
-//
-//		public static TodoItemManager TodoManager {
-//			get { return todoItemManager; }
-//			set { todoItemManager = value; }
-//		}
-//
-//		public static void SetTodoItemManager (TodoItemManager todoItemManager)
-//		{
-//			TodoManager = todoItemManager;
-//		}
+		//		public static TodoItemManager todoItemManager;
+		//
+		//		public static TodoItemManager TodoManager {
+		//			get { return todoItemManager; }
+		//			set { todoItemManager = value; }
+		//		}
+		//
+		//		public static void SetTodoItemManager (TodoItemManager todoItemManager)
+		//		{
+		//			TodoManager = todoItemManager;
+		//		}
 
-		public static SyncRepository<TodoItem> todoItemManager;
-		public static SyncRepository<TodoItem> TodoManager {
+		public static SyncRepository<User> todoItemManager;
+		public static SyncRepository<User> TodoManager {
 			get { return todoItemManager; }
 			set { todoItemManager = value; }
 		}
 
-		public static void SetTodoItemManager (SyncRepository<TodoItem> todoItemManager)
+		public static void SetTodoItemManager (SyncRepository<User> todoItemManager)
 		{
 			TodoManager = todoItemManager;
 		}

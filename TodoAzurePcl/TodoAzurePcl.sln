@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAzurePcl", "TodoAzurePcl\TodoAzurePcl.csproj", "{2F33F537-2DB9-4B33-8601-FBA368B2EA21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAzurePcl.Android", "Android\TodoAzurePcl.Android.csproj", "{218D42D9-B289-4FF1-8A1C-8C74F3762E35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{218D42D9-B289-4FF1-8A1C-8C74F3762E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218D42D9-B289-4FF1-8A1C-8C74F3762E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218D42D9-B289-4FF1-8A1C-8C74F3762E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218D42D9-B289-4FF1-8A1C-8C74F3762E35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F33F537-2DB9-4B33-8601-FBA368B2EA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F33F537-2DB9-4B33-8601-FBA368B2EA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F33F537-2DB9-4B33-8601-FBA368B2EA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F33F537-2DB9-4B33-8601-FBA368B2EA21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Android\TodoAzurePcl.Android.csproj
+	EndGlobalSection
+EndGlobal
