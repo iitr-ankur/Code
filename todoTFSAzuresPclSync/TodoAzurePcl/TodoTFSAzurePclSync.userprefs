@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="Android\TodoTFSAzurePclSync.Android.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TodoAzurePcl\App.cs">
+    <Files>
+      <File FileName="TodoAzurePcl\DataItems.cs" Line="2" Column="2" />
+      <File FileName="TodoAzurePcl\App.cs" Line="33" Column="33" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
