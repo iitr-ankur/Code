@@ -22,8 +22,13 @@ namespace TodoAzurePcl
 		{
 			try 
 			{
-				await SyncItemsAsync();
-				return await syncTable.LookupAsync(id);
+				var item = await syncTable.LookupAsync(id);
+				if(item == null)
+				{
+					await SyncItemsAsync();
+					item = await syncTable.LookupAsync(id);
+				}
+				return item;
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
 			{
@@ -40,7 +45,7 @@ namespace TodoAzurePcl
 		{
 			try 
 			{
-				await SyncItemsAsync();
+				SyncItemsAsync();
 				return new List<T> (await syncTable.ReadAsync());
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
@@ -62,7 +67,7 @@ namespace TodoAzurePcl
 				else
 					await syncTable.UpdateAsync (item);
 
-				await SyncItemsAsync ();
+				SyncItemsAsync ();
 			}
 			catch (MobileServiceInvalidOperationException msioe)
 			{
@@ -79,7 +84,7 @@ namespace TodoAzurePcl
 			try 
 			{
 				await syncTable.DeleteAsync(item);
-				await SyncItemsAsync();
+				SyncItemsAsync();
 			} 
 			catch (MobileServiceInvalidOperationException msioe)
 			{

@@ -6,6 +6,8 @@ namespace TodoAzurePcl
 	{
 		public static string Url = @"https://todotfs.azure-mobile.net/";
 		public static string Key = @"FnGAXxDPGYgaRDHXOMjgldbJoTrGKR61";
+
+        public static string ReassignTag = "Reassign";
 	}
 }
 

@@ -30,6 +30,12 @@ namespace TodoAzurePcl
             this.Title = "Menu Items";
             this.Content = new StackLayout { Children = { newTask, showTasks, myProfile, users }, Orientation = StackOrientation.Vertical };
         }
+
+        protected override void OnAppearing()
+        {
+
+            base.OnAppearing();
+        }
         
 
         

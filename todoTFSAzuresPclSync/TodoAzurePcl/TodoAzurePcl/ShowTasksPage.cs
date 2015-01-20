@@ -17,6 +17,15 @@ namespace TodoAzurePcl
             tasks.ItemTemplate.SetBinding(TextCell.TextProperty, "TaskDescription");
             tasks.ItemTemplate.SetBinding(TextCell.DetailProperty, "AssignedToId");
             tasks.ItemsSource = App.Tasks;
+            tasks.ItemSelected += async (sender, e) =>
+            {
+                if(e.SelectedItem != null)
+                {
+                    var selectedTask = (TodoTask)e.SelectedItem;
+                    tasks.SelectedItem = null;
+                    await this.Navigation.PushAsync(new CreateTaskPage(selectedTask));
+                }
+            };
 
             //ActivityIndicator activityIndicator = new ActivityIndicator{
             //    Color = Device.OnPlatform(Color.Black, Color.Default, Color.Default),

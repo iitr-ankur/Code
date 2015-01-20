@@ -54,7 +54,7 @@ namespace TodoAzurePcl
                     await App.ContactsRepo.SaveItemAsync(myContact);
                     App.MyProfile = myContact;
                     App.SaveConfigFile();
-                    await this.Navigation.PushAsync(new CreateTaskPage());
+                    await this.Navigation.PushAsync(new MenuPage());
                 }
             };
 
