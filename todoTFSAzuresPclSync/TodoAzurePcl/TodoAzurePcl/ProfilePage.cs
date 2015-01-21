@@ -34,7 +34,6 @@ namespace TodoAzurePcl
                 phoneNumEntry.Text = App.MyProfile.PhoneNum;
             }
 
-            // TODO: Remove this and save on back navigation. Update Db of contact info.
             var saveButton = new Button { Text = "Save" };
             saveButton.Clicked += async (sender, e) =>
             {
@@ -50,11 +49,10 @@ namespace TodoAzurePcl
                         myContact.Id = App.MyProfile.Id;
                     }
 
-                    // TODO: Save Db.
                     await App.ContactsRepo.SaveItemAsync(myContact);
                     App.MyProfile = myContact;
                     App.SaveConfigFile();
-                    await this.Navigation.PushAsync(new MenuPage());
+					await this.Navigation.PopAsync();
                 }
             };
 

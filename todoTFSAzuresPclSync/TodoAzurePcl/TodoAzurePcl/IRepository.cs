@@ -7,7 +7,7 @@ namespace TodoAzurePcl
 	public interface IRepository<T> where T : class
 	{
 		Task<T> GetItemAsync(string id);
-		Task<List<T>> GetAllItemsAsync ();
+		Task<List<T>> GetAllItemsAsync (bool refresh);
 		Task SaveItemAsync (T item);
 		Task DeleteItemAsync (T item);
 		Task SyncItemsAsync();

@@ -41,11 +41,14 @@ namespace TodoAzurePcl
 			return null;
 		}
 
-		public async Task<List<T>> GetAllItemsAsync ()
+		public async Task<List<T>> GetAllItemsAsync (bool refresh = false)
 		{
 			try 
 			{
-				SyncItemsAsync();
+				if(refresh)
+				{
+					await SyncItemsAsync();
+				}
 				return new List<T> (await syncTable.ReadAsync());
 			} 
 			catch (MobileServiceInvalidOperationException msioe)

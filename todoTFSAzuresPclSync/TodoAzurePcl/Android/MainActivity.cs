@@ -21,7 +21,7 @@ using Android.Util;
 namespace TodoAzurePcl.Android
 {
 	[Activity (Label = "TodoTFS", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : AndroidActivity //XFormsApplicationDroid
+	public class MainActivity : AndroidActivity //XFormsApplicationDroid
 	{
 		MobileServiceClient _client;
 		IMobileServiceSyncTable<Contact> _contacts;
@@ -61,8 +61,9 @@ namespace TodoAzurePcl.Android
             #endregion
 
             SetPage(App.GetMainPage());
-            await App.LoadContacts();
-
+			
+            await App.LoadContacts(false);
+			await App.LoadTasks (false);
 		}
 
 	}

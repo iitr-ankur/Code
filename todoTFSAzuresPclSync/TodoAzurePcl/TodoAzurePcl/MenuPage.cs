@@ -18,7 +18,6 @@ namespace TodoAzurePcl
             showTasks.Clicked += async (sender, e) =>
                 {
                     await this.Navigation.PushAsync(new ShowTasksPage());
-                    await App.LoadTasks();
                 };
 
             Button myProfile = new Button { Text = "Show Profile" };
@@ -33,7 +32,16 @@ namespace TodoAzurePcl
 
         protected override void OnAppearing()
         {
-
+            if(!App.IsConfigAvailable())
+            {
+                System.Diagnostics.Debug.WriteLine("Diagnostic Log: Config file not available");
+				this.Navigation.PushAsync (new ProfilePage ());
+				//return new NavigationPage(new ProfilePage());
+			} else if(!App.IsConfigLoaded){
+                System.Diagnostics.Debug.WriteLine("Diagnostic Log: Load Config");
+                App.LoadConfig();
+                //return new NavigationPage(new MenuPage());
+            }
             base.OnAppearing();
         }
         

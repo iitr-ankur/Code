@@ -96,7 +96,6 @@ namespace TodoAzurePcl
 
             this.Title = _task.Id == null ? "New Task" : (_task.TaskDescription.Substring(0, _task.TaskDescription.Length > 10 ? 10 : _task.TaskDescription.Length) + "...");
             Content = stack;
-            //Content = new ScrollView { Content = stack };
         }
 
         protected override async void OnDisappearing()

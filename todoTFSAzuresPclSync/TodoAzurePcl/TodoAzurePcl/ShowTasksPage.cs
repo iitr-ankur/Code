@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace TodoAzurePcl
 {
@@ -27,13 +28,39 @@ namespace TodoAzurePcl
                 }
             };
 
-            //ActivityIndicator activityIndicator = new ActivityIndicator{
-            //    Color = Device.OnPlatform(Color.Black, Color.Default, Color.Default),
-            //    IsRunning = true,
-            //    VerticalOptions = LayoutOptions.Center};
+            ActivityIndicator activityIndicator = new ActivityIndicator
+            {
+                Color = Device.OnPlatform(Color.Black, Color.Default, Color.Default),
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            activityIndicator.BindingContext = App.appBindings;
+            activityIndicator.SetBinding(ActivityIndicator.IsRunningProperty, "LoadingTasks", BindingMode.TwoWay);
+            activityIndicator.SetBinding(ActivityIndicator.IsVisibleProperty, "LoadingTasks", BindingMode.TwoWay);
+
+            Button loadContacts = new Button { Text = "Load Tasks", HorizontalOptions = LayoutOptions.FillAndExpand };
+            loadContacts.Clicked += async (object sender, EventArgs e) =>
+            {
+                await App.LoadTasks(true);
+            };
 
             this.Title = "Tasks List";
-            this.Content = new StackLayout() { Children = { tasks }, Orientation = StackOrientation.Vertical };
+            this.Content = new StackLayout()
+            {
+                Orientation = StackOrientation.Vertical,
+                Children = { 
+                    new StackLayout{Orientation = StackOrientation.Horizontal, Children = {loadContacts, activityIndicator}}, 
+                    tasks },
+            };
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+			if(App.appBindings.LoadingTasks)
+			{
+				await App.LoadTasks(false);
+			}
         }
     }
 }

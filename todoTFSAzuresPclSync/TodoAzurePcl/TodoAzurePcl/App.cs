@@ -17,6 +17,9 @@ namespace TodoAzurePcl
         public static SyncRepository<Contact> ContactsRepo;
         public static SyncRepository<TodoTask> TasksRepo;
         public static string configFile = "todoTFS.config";
+		public static bool IsConfigLoaded = false;
+
+		public static Appbindings appBindings = new Appbindings ();
 
         public static void SetContactsRepo(SyncRepository<Contact> contactsDb)
         {
@@ -30,15 +33,7 @@ namespace TodoAzurePcl
 
         public static Page GetMainPage()
         {
-            if(!IsConfigAvailable())
-            {
-                System.Diagnostics.Debug.WriteLine("Diagnostic Log: new Navigation Page");
-                return new NavigationPage(new ProfilePage());
-            } else {
-                System.Diagnostics.Debug.WriteLine("Diagnostic Log: Menu Page");
-                App.LoadConfig();
-                return new NavigationPage(new MenuPage());
-            }
+			return new NavigationPage (new MenuPage ());
         }
 
         public static void LoadConfig()
@@ -50,6 +45,7 @@ namespace TodoAzurePcl
             string id = lines[2].Trim().Replace("Id\t", "");
 
             MyProfile = new Contact { Name = name, PhoneNum = phoneNum, Id = id };
+			IsConfigLoaded = true;
         }
 
         public static bool IsConfigAvailable()
@@ -66,24 +62,28 @@ namespace TodoAzurePcl
             FileHelper.WriteAllText(configFile, config);
         }
 
-        public static async Task LoadContacts()
+		public static async Task LoadContacts(bool refresh)
         {
-            var contactsList = await ContactsRepo.GetAllItemsAsync();
+			appBindings.LoadingContacts = true;
+			var contactsList = await ContactsRepo.GetAllItemsAsync(refresh);
             MyContacts.Clear();
             foreach (var item in contactsList.OrderBy(p => p.Name))
             {
                 MyContacts.Add(item);
             }
+            appBindings.LoadingContacts = false;
         }
 
-        public static async Task LoadTasks()
+        public static async Task LoadTasks(bool refresh)
         {
-            var tasksList = await TasksRepo.GetAllItemsAsync();
+            appBindings.LoadingTasks = true;
+			var tasksList = await TasksRepo.GetAllItemsAsync(refresh);
             Tasks.Clear();
             foreach (var item in tasksList.OrderBy(p => p.TaskStatus))
             {
                 Tasks.Add(item);
             }
+            appBindings.LoadingTasks = false;
         }
     }
 }
