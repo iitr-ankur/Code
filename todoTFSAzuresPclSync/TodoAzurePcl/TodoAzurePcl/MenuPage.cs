@@ -30,12 +30,14 @@ namespace TodoAzurePcl
             this.Content = new StackLayout { Children = { newTask, showTasks, myProfile, users }, Orientation = StackOrientation.Vertical };
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             if(!App.IsConfigAvailable())
             {
                 System.Diagnostics.Debug.WriteLine("Diagnostic Log: Config file not available");
-				this.Navigation.PushAsync (new ProfilePage ());
+                App.LoadContacts(true);
+                App.LoadTasks(true);
+				await this.Navigation.PushAsync (new ProfilePage ());
 				//return new NavigationPage(new ProfilePage());
 			} else if(!App.IsConfigLoaded){
                 System.Diagnostics.Debug.WriteLine("Diagnostic Log: Load Config");

@@ -2,7 +2,7 @@
 
 namespace TodoAzurePcl
 {
-	public class EntityData
+	public class EntityData : NotifyPropertyChanged
 	{
 		public string Id { get; set; }
 	}

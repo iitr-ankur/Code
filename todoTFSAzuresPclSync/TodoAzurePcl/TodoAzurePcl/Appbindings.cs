@@ -3,21 +3,13 @@ using System.ComponentModel;
 
 namespace TodoAzurePcl
 {
-	public class Appbindings : INotifyPropertyChanged
+	public class Appbindings : NotifyPropertyChanged
 	{
-		public Appbindings() { LoadingContacts = true; LoadingTasks = true; }
-
-		public event PropertyChangedEventHandler PropertyChanged;
-	
-		private void OnPropertyChanged(string info)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-			{
-				handler(this, new PropertyChangedEventArgs(info));
-			}
-		}
-
+        public Appbindings()
+        {
+            LoadingContacts = true;
+            LoadingTasks = true;
+        }
 
 		private bool _loadingContacts;
 		public bool LoadingContacts
@@ -25,10 +17,7 @@ namespace TodoAzurePcl
 			get { return _loadingContacts; }
 			set
 			{
-				if (_loadingContacts != value) {
-					_loadingContacts = value;
-                    OnPropertyChanged("LoadingContacts");
-				}
+				SetProperty (ref _loadingContacts, value);
 			}
 		}
 
@@ -38,11 +27,7 @@ namespace TodoAzurePcl
             get { return _loadingTasks; }
             set
             {
-                if (_loadingTasks != value)
-                {
-                    _loadingTasks = value;
-                    OnPropertyChanged("LoadingTasks");
-                }
+				SetProperty (ref _loadingTasks, value);
             }
         }
 	}

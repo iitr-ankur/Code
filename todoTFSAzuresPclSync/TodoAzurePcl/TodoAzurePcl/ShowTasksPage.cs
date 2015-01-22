@@ -6,18 +6,21 @@ using System.Text;
 
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace TodoAzurePcl
 {
     public class ShowTasksPage : ContentPage
     {
+        private ListView tasks = new ListView();
+
         public ShowTasksPage()
         {
-            ListView tasks = new ListView();
+            
             tasks.ItemTemplate = new DataTemplate(typeof(TextCell));
             tasks.ItemTemplate.SetBinding(TextCell.TextProperty, "TaskDescription");
-            tasks.ItemTemplate.SetBinding(TextCell.DetailProperty, "AssignedToId");
-            tasks.ItemsSource = App.Tasks;
+            tasks.ItemTemplate.SetBinding(TextCell.DetailProperty, "AssignedTo");
+			tasks.ItemsSource = App.Tasks;
             tasks.ItemSelected += async (sender, e) =>
             {
                 if(e.SelectedItem != null)

@@ -60,10 +60,11 @@ namespace TodoAzurePcl.Android
             App.SetTasksRepo(new SyncRepository<TodoTask>(_client, _tasks));
             #endregion
 
+            App.LoadContacts(false);
+            App.LoadTasks(false);
+
             SetPage(App.GetMainPage());
-			
-            await App.LoadContacts(false);
-			await App.LoadTasks (false);
+            
 		}
 
 	}

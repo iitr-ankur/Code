@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace TodoAzurePcl
 {
-    public static class App
+	public static class App
     {
         public static Contact MyProfile { get; set; }
         public static ObservableCollection<Contact> MyContacts = new ObservableCollection<Contact>();
@@ -64,7 +64,10 @@ namespace TodoAzurePcl
 
 		public static async Task LoadContacts(bool refresh)
         {
-			appBindings.LoadingContacts = true;
+            if(refresh)
+            {
+                appBindings.LoadingContacts = true;
+            }
 			var contactsList = await ContactsRepo.GetAllItemsAsync(refresh);
             MyContacts.Clear();
             foreach (var item in contactsList.OrderBy(p => p.Name))
@@ -76,7 +79,10 @@ namespace TodoAzurePcl
 
         public static async Task LoadTasks(bool refresh)
         {
-            appBindings.LoadingTasks = true;
+            if(refresh)
+            {
+                appBindings.LoadingTasks = true;
+            }
 			var tasksList = await TasksRepo.GetAllItemsAsync(refresh);
             Tasks.Clear();
             foreach (var item in tasksList.OrderBy(p => p.TaskStatus))

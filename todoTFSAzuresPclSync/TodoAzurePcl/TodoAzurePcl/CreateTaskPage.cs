@@ -22,7 +22,9 @@ namespace TodoAzurePcl
                 _task = new TodoTask
                 {
                     AssignedToId = App.MyProfile.Id,
+                    AssignedTo = App.MyProfile.Name,
                     CreatedById = App.MyProfile.Id,
+                    CreatedBy = App.MyProfile.Name,
                     TaskStatus = ((int)TaskStatus.Active),
                     History = string.Empty,
                     TaskDescription = "Add Description"
@@ -36,7 +38,7 @@ namespace TodoAzurePcl
             Label taskLabel = new Label { Text = "Task:", VerticalOptions = LayoutOptions.Fill, HorizontalOptions = LayoutOptions.FillAndExpand };
             _description = new Editor() { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.FillAndExpand, Text = _task.TaskDescription };
 
-            var assignedTo = new Button { HorizontalOptions = LayoutOptions.FillAndExpand, Text = ("AssignedTo: " + _task.AssignedToId) };
+            var assignedTo = new Button { HorizontalOptions = LayoutOptions.FillAndExpand, Text = ("AssignedTo: " + _task.AssignedTo) };
             assignedTo.Clicked += (sender, e) =>
                 {
                     MessagingCenter.Subscribe<ReAssignPage, Contact>(this, Constants.ReassignTag + _task.Id, (reassignPage, contact) =>
@@ -45,8 +47,10 @@ namespace TodoAzurePcl
                             {
                                 _needsSaving = true;
                                 _task.AssignedToId = contact.Id;
-                                assignedTo.Text = ("AssignedTo: " + _task.AssignedToId);
-                            }
+                                _task.AssignedTo = contact.Name;
+                                assignedTo.Text = ("AssignedTo: " + _task.AssignedTo);
+								//MessagingCenter.Unsubscribe<ReAssignPage, Contact>(this, Constants.ReassignTag + _task.Id);
+							}
                         });
                     this.Navigation.PushAsync(new ReAssignPage(_task.Id));
                 };

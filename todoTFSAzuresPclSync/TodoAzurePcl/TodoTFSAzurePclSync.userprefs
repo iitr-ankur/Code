@@ -1,9 +1,17 @@
-﻿<Properties StartupItem="Android\TodoTFSAzurePclSync.Android.csproj">
+﻿<Properties StartupItem="Android\TodoTFSAzurePclSync.Android.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
   <MonoDevelop.Ide.Workbench ActiveDocument="TodoAzurePcl\App.cs">
     <Files>
-      <File FileName="TodoAzurePcl\DataItems.cs" Line="2" Column="2" />
-      <File FileName="TodoAzurePcl\App.cs" Line="33" Column="33" />
+      <File FileName="TodoAzurePcl\App.cs" Line="3" Column="3" />
+      <File FileName="Android\MainActivity.cs" Line="26" Column="26" />
+      <File FileName="TodoAzurePcl\ShowTasksPage.cs" Line="1" Column="1" />
+      <File FileName="TodoAzurePcl\UsersPage.cs" Line="35" Column="35" />
+      <File FileName="TodoAzurePcl\Appbindings.cs" Line="23" Column="23" />
+      <File FileName="TodoAzurePcl\SyncRepository.cs" Line="30" Column="30" />
+      <File FileName="TodoAzurePcl\IRepository.cs" Line="17" Column="17" />
+      <File FileName="TodoAzurePcl\MenuPage.cs" Line="1" Column="1" />
+      <File FileName="TodoAzurePcl\ProfilePage.cs" Line="14" Column="14" />
+      <File FileName="TodoAzurePcl\DataItems.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
