@@ -11,8 +11,10 @@ namespace TodoAzurePcl
 {
     public class ReAssignPage : ContentPage
     {
-        public ReAssignPage(string taskId)
+		private TodoTask _task;
+		public ReAssignPage(ref TodoTask task)
         {
+			_task = task;
             ListView users = new ListView();
             users.ItemTemplate = new DataTemplate(typeof(TextCell));
             users.ItemTemplate.SetBinding(TextCell.TextProperty, "Name");
@@ -22,7 +24,8 @@ namespace TodoAzurePcl
 				if (e.SelectedItem != null) {
 					var reassignTo = (Contact)e.SelectedItem;
 					users.SelectedItem = null;
-					MessagingCenter.Send<ReAssignPage, Contact> (this, Constants.ReassignTag + taskId, reassignTo);
+					_task.AssignedTo = reassignTo.Name;
+					_task.AssignedToId = reassignTo.Id;
 					this.Navigation.PopAsync ();
 				}
 			};
