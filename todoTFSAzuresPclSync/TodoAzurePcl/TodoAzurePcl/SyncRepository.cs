@@ -4,6 +4,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace TodoAzurePcl
 {
@@ -66,7 +67,7 @@ namespace TodoAzurePcl
 		{
 			try {
 				if (item.Id == null)
-					await syncTable.InsertAsync (item);
+					await syncTable.InsertAsync ( item );
 				else
 					await syncTable.UpdateAsync (item);
 

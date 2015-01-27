@@ -151,19 +151,26 @@ namespace TodoAzurePcl
 
             if(_needsSaving)
             {
+				bool addToCollection = false;
+				if (_task.Id == null)
+					addToCollection = true;
+
                 await SaveTask();
+				if (addToCollection)
+					App.Tasks.Add (_task);
+
             }
  
             base.OnDisappearing();
         }
 
-        private async Task SaveTask()
+		private async Task SaveTask()
         {
 			if (!string.Equals (_comment.Text.Trim (), "Add Comments")) {
 				_task.History = string.Format ("On {0}, {1} added: \n {2}\n\n{3}", DateTime.UtcNow.ToString (), App.MyProfile.Name, _comment.Text.Trim (), _task.History);
 			}
             _task.TaskDescription = _description.Text.Trim();
-            await App.TasksRepo.SaveItemAsync(_task);
+			await App.TasksRepo.SaveItemAsync(_task);
         }
     }
 }
