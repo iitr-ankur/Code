@@ -6,6 +6,7 @@ using System.Threading;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using TodoAzurePcl.Helpers;
 
 namespace TodoAzurePcl
 {
@@ -38,28 +39,21 @@ namespace TodoAzurePcl
 
         public static void LoadConfig()
         {
-            var text = FileHelper.ReadAllText(configFile);
-            var lines = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            string name = lines[0].Trim().Replace("Name\t", "");
-            string phoneNum = lines[1].Trim().Replace("Phone\t", "");
-            string id = lines[2].Trim().Replace("Id\t", "");
-
-            MyProfile = new Contact { Name = name, PhoneNum = phoneNum, Id = id };
+            MyProfile = new Contact { Name = Settings.Name, PhoneNum = Settings.Phone, Id = Settings.Id };
 			IsConfigLoaded = true;
         }
 
         public static bool IsConfigAvailable()
         {
-            return FileHelper.Exists(configFile);
+            return Settings.IsRegistered;
         }
 
-        public static void SaveConfigFile()
+        public static void SaveConfig()
         {
-            string config = string.Empty;
-            config += string.Format("Name\t{0}\n", MyProfile.Name);
-            config += string.Format("Phone\t{0}\n", MyProfile.PhoneNum);
-            config += string.Format("Id\t{0}\n", MyProfile.Id);
-            FileHelper.WriteAllText(configFile, config);
+            Settings.Name = MyProfile.Name;
+            Settings.Phone = MyProfile.PhoneNum;
+            Settings.Id = MyProfile.Id;
+            Settings.IsRegistered = true;
         }
 
 		public static async Task LoadContacts(bool refresh)
